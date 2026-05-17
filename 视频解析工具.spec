@@ -1,14 +1,13 @@
 # -*- mode: python ; coding: utf-8 -*-
-from PyInstaller.utils.hooks import collect_all, collect_submodules
+from PyInstaller.utils.hooks import collect_submodules
+from PyInstaller.utils.hooks import collect_all
 
-datas = []
+datas = [('logo.ico', '.')]
 binaries = []
 hiddenimports = ['requests', 'bs4', 'DrissionPage', 'rich', 'parser_core']
 hiddenimports += collect_submodules('rich')
 tmp_ret = collect_all('DrissionPage')
-datas += tmp_ret[0]
-binaries += tmp_ret[1]
-hiddenimports += tmp_ret[2]
+datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
 
 
 a = Analysis(
