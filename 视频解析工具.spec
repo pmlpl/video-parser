@@ -1,15 +1,18 @@
 # -*- mode: python ; coding: utf-8 -*-
-from PyInstaller.utils.hooks import collect_all
+from PyInstaller.utils.hooks import collect_all, collect_submodules
 
 datas = []
 binaries = []
-hiddenimports = ['requests', 'bs4', 'DrissionPage', 'tkinter']
+hiddenimports = ['requests', 'bs4', 'DrissionPage', 'rich', 'parser_core']
+hiddenimports += collect_submodules('rich')
 tmp_ret = collect_all('DrissionPage')
-datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
+datas += tmp_ret[0]
+binaries += tmp_ret[1]
+hiddenimports += tmp_ret[2]
 
 
 a = Analysis(
-    ['lookingVideo_gui.py'],
+    ['lookingVideo.py'],
     pathex=[],
     binaries=binaries,
     datas=datas,
@@ -33,7 +36,7 @@ exe = EXE(
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    console=False,
+    console=True,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
